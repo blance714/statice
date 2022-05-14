@@ -1,0 +1,7 @@
+#content-wrapper {
+  transition: all .2s ease-out;
+
+  > * {
+    position: absolute;
+  }
+}

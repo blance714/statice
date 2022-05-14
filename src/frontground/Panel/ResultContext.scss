@@ -1,0 +1,45 @@
+.resultContent {
+  .word, .pron {
+    font-family: serif;
+  }
+
+  .title {
+    margin: 5px;
+  }
+
+  .word {
+    font-size: 35px;
+    margin: 5px;
+  }
+
+  .accent {
+    font-size: 5px;
+    vertical-align: 3px;
+  }
+
+  .excerpt {
+    display: none;
+  }
+
+  .type {
+    margin-left: 10px;
+    border-bottom: 3px solid lightblue;
+  }
+
+  .detail {
+    .meaning {
+      padding-left: 8px;
+      border-left: 3px solid burlywood;
+    }
+
+    .examples {
+      padding-left: 12px;
+    }
+
+    .example {
+      .translate {
+        color: lightseagreen;
+      }
+    }
+  }
+}
