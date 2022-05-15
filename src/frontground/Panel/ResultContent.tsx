@@ -1,6 +1,6 @@
 import { ReactElement, useEffect, useState } from "react";
 
-import './ResultContext.scss';
+import './ResultContent.scss';
 
 function ResultContent({ resultPromise }: { resultPromise: Promise<SearchResult> }) {
   const [state, setState] = useState<

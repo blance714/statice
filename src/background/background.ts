@@ -311,7 +311,8 @@ const bgFetch: bgFunction = ({ url, body, method }) => {
     },
     body: body ? JSON.stringify(body) : undefined
   }).then(v => v.json())
-    .then(v => (console.log(v), v))
+  .then(v => (console.log(v), v))
+  .catch(r => console.log(`[Background fetch]Error: ${r}`))
 };
 
 const bgFunctions = {

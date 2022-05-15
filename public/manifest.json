@@ -17,6 +17,7 @@
     "service_worker": "background.js"
   },
   "host_permissions": [
-    "https://api.mojidict.com/*"
+    "https://api.mojidict.com/*",
+    "http://localhost:8765"
   ]
 }

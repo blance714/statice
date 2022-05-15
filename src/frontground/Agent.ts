@@ -7,6 +7,7 @@ function runBGFunction(type: string, params: any) {
 const Agent = {
   fetch: (url: string, body?: object, method: string = 'GET') =>
     runBGFunction('fetch', { url, body, method: body ? 'POST' : method })
+    .catch(r => console.log(`[Agent fetch]Error:${r}`))
 }
 
 export default Agent;

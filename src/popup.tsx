@@ -1,4 +1,5 @@
 import SearchPanel from './frontground/Panel/SearchPanel';
+import Anki from './frontground/tools/anki';
 import renderRoot from './renderRoot';
 
 renderRoot(
@@ -6,3 +7,5 @@ renderRoot(
     <SearchPanel />
   </div>
 );
+
+Anki.deckNames()
