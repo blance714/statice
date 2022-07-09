@@ -1,3 +1,4 @@
+import { SearchResult } from "models/search";
 import ResultContent from "./ResultContent";
 
 import './ResultsPanel.scss'

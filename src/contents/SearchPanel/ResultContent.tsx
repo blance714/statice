@@ -1,3 +1,4 @@
+import { SearchResult } from "models/search";
 import { ReactElement, useEffect, useState } from "react";
 
 import './ResultContent.scss';

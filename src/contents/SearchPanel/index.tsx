@@ -1,7 +1,8 @@
+import { SearchResult } from 'models/search';
 import { FormEvent, useEffect, useState } from 'react';
-import { searchPassage } from '../Search/Search';
+import { searchPassage } from 'tools/search';
 import ResultsPanel from './ResultsPanel';
-import './SearchPanel.scss';
+import './index.scss';
 
 function SearchPanel({ defaultPassage, show } : { defaultPassage?: string, show?: boolean }) {
   let [results, setResults] = useState<Promise<SearchResult>[]>([]);

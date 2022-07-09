@@ -1,0 +1,27 @@
+.anki-add-note-panel {
+  background-color: var(--semi-color-fill-0);
+  border-radius: var(--semi-border-radius-large);
+}
+
+.anki-add-note-header {
+  font-size: large;
+  font-weight: bold;
+  margin: 0.5rem;
+}
+
+.anki-add-note-content {
+  margin: 0.5rem;
+  overflow: scroll;
+}
+
+.anki-add-note-select {
+  width: 100%;
+}
+
+.anki-add-note-input {
+  width: 100%;
+}
+
+.anki-add-note-footer {
+  margin: 0.5rem;
+}

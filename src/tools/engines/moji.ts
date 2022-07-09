@@ -1,4 +1,5 @@
-import Agent from "../Agent";
+import { Engine } from "models/engine";
+import Agent from "tools/agent";
 
 const apiURL = 'https://api.mojidict.com/parse/functions/';
 const ApplicationID = 'E62VyFVLMiW7kvbtVq3p';

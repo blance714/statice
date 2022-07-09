@@ -1,4 +1,5 @@
-import mojiSearch from './moji';
+import { EngineType } from 'models/engine';
+import mojiSearch from './engines/moji';
 
 const engines = {
   moji: mojiSearch

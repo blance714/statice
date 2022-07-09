@@ -1,11 +1,10 @@
-import SearchPanel from './frontground/Panel/SearchPanel';
-import Anki from './frontground/tools/anki';
-import renderRoot from './renderRoot';
+import { AnkiAddNote } from './contents/AnkiAddNote';
+import SearchPanel from 'contents/SearchPanel';
+import renderRoot from './tools/renderRoot';
 
 renderRoot(
-  () => <div style={{ fontSize: '100%' }}>
-    <SearchPanel />
+  () => <div style={{ fontSize: '100%', width: '400px', height: '600px' }}>
+    <AnkiAddNote />
+    {/* <SearchPanel show/> */}
   </div>
 );
-
-Anki.deckNames()

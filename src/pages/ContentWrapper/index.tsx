@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react"
-import SearchPanel from "./Panel/SearchPanel";
+import SearchPanel from "contents/SearchPanel";
 
-import './ContentWrapper.scss'
+import './index.scss'
 import qwqImg from './qwq.gif';
 
 function ContentWrapper() {
@@ -23,7 +23,7 @@ function ContentWrapper() {
           setState(state => state ? state : 1);
           console.log('handler');
           setSelection(str);
-          setPosition([e.pageX + 40, e.pageY - 40]);
+          setPosition([e.clientX + 40, e.clientY - 40]);
         }
       }
     }

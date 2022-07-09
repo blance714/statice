@@ -1,9 +1,10 @@
-console.log("THIS IS background!");
-
-type bgFunction = (params: any) => Promise<any>;
+import { Config } from "models/config";
 
 const DEBUG = false;
 
+type bgFunction = (params: any) => Promise<any>;
+
+// fetch
 const bgFetch: bgFunction = ({ url, body, method }) => {
   console.log(body);
   return DEBUG ? Promise.resolve(
@@ -311,26 +312,46 @@ const bgFetch: bgFunction = ({ url, body, method }) => {
     },
     body: body ? JSON.stringify(body) : undefined
   }).then(v => v.json())
-  .then(v => (console.log(v), v))
+  .then(v => (console.log(`[Background fetch]Succ: ${v}`), v))
   .catch(r => console.log(`[Background fetch]Error: ${r}`))
 };
 
-const bgFunctions = {
-  fetch: bgFetch,
+// storageGet
+const bgStorageGet: bgFunction = ({ key, location }) => {
+  const des = location ? location : 'sync';
+  return chrome.storage.sync.get(key as string)
+    .then(v => (console.log(`[Background storageGet ${des}]Succ: ${key}: ${JSON.stringify(v[key])}`), v[key]))
+    .catch(r => console.log(`[Background storageGet ${des}]Error: ` + r));
 };
 
-chrome.runtime.onMessage.addListener(
-  (
-    { type, params }: { type: bgFunctionType; params: any },
-    sender,
-    sendResponse
-  ) => {
-    console.log('backgroundOnMessage');
-    console.log({ type, params });
-    bgFunctions[type](params).then((v) => sendResponse(v));
-    // sendResponse(bgFunctions[type](params));
-    return true;
-  }
-);
+const bgStorageSet: bgFunction = ({ item, location }) => {
+  const des = location ? location : 'sync';
+  return chrome.storage.sync.set(item)
+    .then(() => console.log(`[Background storageSet ${des}]Succ: ${JSON.stringify(item)}`))
+    .catch(r => console.log(`[Background storageSet ${des}]Error: ` + r));
+};
 
-export {};
+let isConfigUsed = false, config: Config | undefined = undefined;
+const initConfig = () => {
+  if (isConfigUsed) return;
+  isConfigUsed = true;
+  bgStorageGet({ key: 'config' })
+    .then(v => config = v)
+    .catch(r => console.log(`[Background initConfig]Error: ${r}`));
+};
+
+const bgConfigSet: bgFunction = ({ item }) => {
+  return bgStorageGet({ key: 'config' })
+    .then(config => bgStorageSet({ config: { ...config, ...item }}));
+};
+
+const bgConfigGet: bgFunction = ({ key }) => {
+  return bgStorageGet({ key: 'config' })
+    .then(config => config[key]);
+};
+
+export const bgFunctions = {
+  fetch: bgFetch,
+  storageGet: bgStorageGet,
+  storageSet: bgStorageSet
+};

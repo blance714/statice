@@ -13,7 +13,7 @@ An extension for search words and add them to Anki.
 ## 🌱TODOs
 
 - [ ] 内在
-  - [ ] 与Anki交互
+  - [x] 与Anki交互
     - [ ] 把词典信息提取出来，并映射到AnkiModel里 !!
       - [ ] 方案1:特殊记号，直接替换
     - [ ] 读取Anki配置
@@ -27,6 +27,6 @@ An extension for search words and add them to Anki.
 - [ ] 外观
   - [ ] 固定位置  !!
     - [ ] 别针  !
-  - [ ] 添加Anki生词窗口  !!
+  - [x] 添加Anki生词窗口  !!
   - [ ] 动画
 - [ ] 配置文件
