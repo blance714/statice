@@ -2,7 +2,6 @@
   "name": "Statice",
   "description": "Build an Extension!",
   "version": "1.0",
-  "homepage": ".",
   "manifest_version": 3,
   "action": {
     "default_popup": "popup.html"
@@ -16,12 +15,20 @@
   "background": {
     "service_worker": "background.js"
   },
+  "declarative_net_request": {
+    "rule_resources": [{
+      "id": "ruleset_1",
+      "enabled": true,
+      "path": "rules.json"
+    }]
+  },
   "permissions": [
-    "storage"
+    "storage",
+    "declarativeNetRequest"
   ],
   "options_page": "options.html",
   "host_permissions": [
     "https://api.mojidict.com/*",
-    "http://localhost:8765"
+    "https://fanyi.youdao.com/*"
   ]
 }

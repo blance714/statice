@@ -1,11 +1,12 @@
 import { Config } from "models/config";
+import { defaultConfig } from "models/config/default";
 
 const DEBUG = false;
 
 type bgFunction = (params: any) => Promise<any>;
 
 // fetch
-const bgFetch: bgFunction = ({ url, body, method }) => {
+const bgFetch: bgFunction = ({ url, body, method, headers }) => {
   console.log(body);
   return DEBUG ? Promise.resolve(
     url.endsWith("search_v3")
@@ -307,10 +308,10 @@ const bgFetch: bgFunction = ({ url, body, method }) => {
         }
   ) : fetch(url, {
     method,
-    headers: {
+    headers: Object.assign({
       'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36 Edg/100.0.1185.50'
-    },
-    body: body ? JSON.stringify(body) : undefined
+    }, headers),
+    body: body ? (typeof body == 'string' ? body : JSON.stringify(body)) : undefined
   }).then(v => v.json())
   .then(v => (console.log(`[Background fetch]Succ: ${v}`), v))
   .catch(r => console.log(`[Background fetch]Error: ${r}`))
@@ -331,18 +332,9 @@ const bgStorageSet: bgFunction = ({ item, location }) => {
     .catch(r => console.log(`[Background storageSet ${des}]Error: ` + r));
 };
 
-let isConfigUsed = false, config: Config | undefined = undefined;
-const initConfig = () => {
-  if (isConfigUsed) return;
-  isConfigUsed = true;
-  bgStorageGet({ key: 'config' })
-    .then(v => config = v)
-    .catch(r => console.log(`[Background initConfig]Error: ${r}`));
-};
-
-const bgConfigSet: bgFunction = ({ item }) => {
+const bgConfigSet: bgFunction = ({ items }) => {
   return bgStorageGet({ key: 'config' })
-    .then(config => bgStorageSet({ config: { ...config, ...item }}));
+    .then(config => bgStorageSet({ item:{ config: { ...config, ...items }}}));
 };
 
 const bgConfigGet: bgFunction = ({ key }) => {
@@ -353,5 +345,7 @@ const bgConfigGet: bgFunction = ({ key }) => {
 export const bgFunctions = {
   fetch: bgFetch,
   storageGet: bgStorageGet,
-  storageSet: bgStorageSet
+  storageSet: bgStorageSet,
+  configSet: bgConfigSet,
+  configGet: bgConfigGet
 };

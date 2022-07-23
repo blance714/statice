@@ -27,9 +27,33 @@
   }
 
   .detail {
+    position: relative;
+
     .meaning {
-      padding-left: 8px;
+      margin-bottom: 0;
       border-left: 3px solid burlywood;
+      padding-left: 5px;
+      padding-right: 17px;
+    }
+
+    .add-button {
+      position: absolute;
+      right: 0;
+      white-space: nowrap;
+      padding-left: 5px;
+      top: 3px;
+      line-height: 21px;
+      height: 22px;
+      width: 12px;
+      color: white;
+      font-weight: normal;
+      font-size: 13px;
+      background-color: cadetblue;
+      transition: width 1s cubic-bezier(0.19, 1, 0.22, 1);
+
+      &:hover {
+        width: 95px;
+      }
     }
 
     .examples {

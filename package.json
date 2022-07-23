@@ -14,7 +14,8 @@
     "@testing-library/react": "^13.1.1",
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.4.1",
-    "@types/node": "^16.11.28",
+    "@types/md5": "^2.3.2",
+    "@types/node": "^18.0.6",
     "@types/react": "^18.0.6",
     "@types/react-dom": "^18.0.2",
     "@types/testing-library__jest-dom": "^5.14.3",
@@ -41,6 +42,7 @@
     "jest": "^27.4.3",
     "jest-resolve": "^27.4.2",
     "jest-watch-typeahead": "^1.0.0",
+    "md5": "^2.3.0",
     "mini-css-extract-plugin": "^2.4.5",
     "postcss": "^8.4.4",
     "postcss-flexbugs-fixes": "^5.0.2",
@@ -66,7 +68,7 @@
     "terser-webpack-plugin": "^5.2.5",
     "typescript": "^4.6.3",
     "web-vitals": "^2.1.4",
-    "webpack": "^5.64.4",
+    "webpack-cli": "^4.10.0",
     "webpack-dev-server": "^4.6.0",
     "webpack-manifest-plugin": "^4.0.2",
     "workbox-webpack-plugin": "^6.4.1"
@@ -153,6 +155,6 @@
   },
   "devDependencies": {
     "@types/chrome": "^0.0.193",
-    "webpack-cli": "^4.9.2"
+    "webpack": "^5.73.0"
   }
 }

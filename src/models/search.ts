@@ -17,3 +17,7 @@ export type SearchResult = {
     }]
   }]
 };
+
+export type SelectionSentence = {
+  normal?: string, bold?: string
+};

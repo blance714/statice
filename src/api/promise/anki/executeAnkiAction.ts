@@ -5,7 +5,7 @@ const ankiPort = 8765;
 const DEBUG = false;
 
 export function executeAnkiAction(action: string, params?: any): Promise<any> {
-  console.log(params);
+  console.log("executeAnkiAction", params);
 
   if (DEBUG) {
     switch(action) {
@@ -38,7 +38,7 @@ export function executeAnkiAction(action: string, params?: any): Promise<any> {
     action: action,
     version: 6,
     params: params
-  }, 'POST').then(v => (console.log(v), v))
+  }, 'POST').then(v => (console.log("[executeAnkiAction]", v), v))
     .then(v => !v.error && ( v.result )
-      || (console.log(`[AnkiConnect]Error:${v.error}`), Promise.reject(v.error)))
+      || (console.log("[executeAnkiAction]Error:", v.error), Promise.reject(v.error)))
 }

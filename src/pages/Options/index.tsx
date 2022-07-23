@@ -5,7 +5,7 @@ import { Config } from "models/config";
 import { defaultConfig } from "models/config/default";
 import { useEffect, useState } from "react";
 import Agent from "tools/agent";
-import { setConfig, useConfig } from "tools/config";
+import { setConfig } from "tools/config";
 
 function Options() {
   const { Header, Content, Sider } = Layout;
@@ -25,10 +25,10 @@ function Options() {
     <Space vertical align="start">
       <Typography.Title heading={5}>Anki note auto fill rules</Typography.Title>
       <Select optionList={modelOptions} onChange={v => setNowModelName(v as string)} placeholder="Select a model..."/>
-      <Form onValueChange={v => setTempConfig({...tempConfig!, ...v})} initValues={tempConfig}>
+      <Form onValueChange={v => setTempConfig({...tempConfig!, ...v})} initValues={ tempConfig }>
         {modelNames?.map((modelName) => (
           <div style={{display: modelName === nowModelName ? 'block' : 'none'}}>
-            {['spell', 'meaning', 'sentence'].map((key) => 
+            {['spell', 'meaning', 'accent', 'pron', 'pronAccent', 'type', 'sentence', 'translate'].map((key) => 
               <Form.Select field={`ankiNoteFillRules.${modelName}.${key}`} optionList={fieldOptions} 
                 noLabel insetLabel={key} showClear/>
             )}
@@ -39,7 +39,7 @@ function Options() {
   </>
 
   const saveConfig = () => {
-    setConfig(tempConfig!);
+    Agent.configSet(tempConfig!);
   }
 
   return (

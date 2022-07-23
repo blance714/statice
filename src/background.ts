@@ -1,4 +1,5 @@
 import { bgFunctionType } from "models/background";
+import { defaultConfig } from "models/config/default";
 import { bgFunctions } from "tools/bgFunctions";
 
 console.log("THIS IS background!");
@@ -20,5 +21,8 @@ chrome.runtime.onMessage.addListener(
     return true;
   }
 );
+
+bgFunctions.storageGet({ key: 'config' })
+  .then(config => bgFunctions.storageSet({ item: { config: { ...defaultConfig, ...config }}}));
 
 export {};

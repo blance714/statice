@@ -1,9 +1,13 @@
+import { Button } from "@douyinfe/semi-ui";
+import { SearchResultNote } from "models/config/anki";
 import { SearchResult } from "models/search";
-import { ReactElement, useEffect, useState } from "react";
+import { AnkiContext } from "pages/ContentWrapper";
+import { ReactElement, useContext, useEffect, useState } from "react";
+import { AddToAnkiButton } from "./AddToAnkiButton";
 
 import './ResultContent.scss';
 
-function ResultContent({ resultPromise }: { resultPromise: Promise<SearchResult> }) {
+function ResultContent({ resultPromise, addToAnki }: { resultPromise: Promise<SearchResult>, addToAnki: (note: SearchResultNote) => void }) {
   const [state, setState] = useState<
     { state: 0 } | { state: 1, result: SearchResult } | { state: 2, error: Error }
   >({ state: 0 });
@@ -14,6 +18,8 @@ function ResultContent({ resultPromise }: { resultPromise: Promise<SearchResult>
       .then(v => setState({ state: 1, result: v }))
       .catch(r => setState({ state: 2, error: r }));
   }, [resultPromise]);
+
+  const ankiContext = useContext(AnkiContext);
 
   let content: ReactElement;
   if (state.state === 0)  content = <span>Loading...</span>;
@@ -31,7 +37,18 @@ function ResultContent({ resultPromise }: { resultPromise: Promise<SearchResult>
         <div className="details">{
           details.map((detail, index) => (
             <div className="detail" key={ index }>
-              <h3 className="meaning">{ detail.meaning }</h3>
+              <h3 className="meaning">{ detail.meaning }
+                {ankiContext && <div className="add-button"
+                  onClick={ () => addToAnki({
+                    spell: word.spell,
+                    meaning: detail.meaning,
+                    accent: word.accent,
+                    pron: word.pron,
+                    type: word.type
+                    //TODO sentence: context
+                  }) }
+                >+ Add to Anki</div>}
+              </h3>
               <div className="examples">{
                 detail.examples.map(example => (
                   <div className="example">
