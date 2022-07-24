@@ -1,11 +1,9 @@
-import { Button, Form, Layout, Select, Space, Spin, Typography } from "@douyinfe/semi-ui";
+import { Button, Form, Layout, Select, Space, Spin, Toast, Typography } from "@douyinfe/semi-ui";
 import { useModelFieldNames } from "api/swr/anki/useModelFieldNames";
 import { useModelNames } from "api/swr/anki/useModelNames";
 import { Config } from "models/config";
-import { defaultConfig } from "models/config/default";
 import { useEffect, useState } from "react";
 import Agent from "tools/agent";
-import { setConfig } from "tools/config";
 
 function Options() {
   const { Header, Content, Sider } = Layout;
@@ -39,7 +37,9 @@ function Options() {
   </>
 
   const saveConfig = () => {
-    Agent.configSet(tempConfig!);
+    Agent.configSet(tempConfig!)
+      .then(() => Toast.success("Options saved successfully"))
+      .catch(() => Toast.error("Options saved failed"));
   }
 
   return (

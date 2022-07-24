@@ -1,4 +1,3 @@
-import { AnkiAddNote } from './contents/AnkiAddNote';
 import ContentWrapper from 'pages/ContentWrapper';
 import renderRoot from './tools/renderRoot';
 

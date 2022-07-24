@@ -60,9 +60,14 @@ function ContentWrapper() {
         <div ref={ divRef } className='content-wrapper' style={{
           position: 'absolute',
           zIndex: 1000,
-          left: position[0], top:position[1]
+          width: state === 2 ? '400px' : (state === 1 ? '50px' : '0'),
+          height: state === 2 ? '500px' : (state === 1 ? '50px' : '0'),
+          left: state === 2 ? Math.min(position[0], window.innerWidth - 400) : position[0],
+          top: state === 2 ? Math.min(position[1], window.innerHeight - 500) : position[1],
+          boxShadow: state === 2 ? '0px 0px 20px -8px' : '',
+          borderRadius: state === 2 ? '10px' : 0
         }}>
-          <img className="staticeIcon" src={qwqImg} style={{display: state === 1 ? 'block' : 'none'}}
+          <img className="staticeIcon" alt="qwq" src={qwqImg} style={{display: state === 1 ? 'block' : 'none'}}
             onClick={e => {
               setState(2);
               e.stopPropagation();

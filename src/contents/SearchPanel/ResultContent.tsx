@@ -1,9 +1,7 @@
-import { Button } from "@douyinfe/semi-ui";
 import { SearchResultNote } from "models/config/anki";
 import { SearchResult } from "models/search";
 import { AnkiContext } from "pages/ContentWrapper";
 import { ReactElement, useContext, useEffect, useState } from "react";
-import { AddToAnkiButton } from "./AddToAnkiButton";
 
 import './ResultContent.scss';
 

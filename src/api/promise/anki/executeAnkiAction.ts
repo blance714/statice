@@ -1,12 +1,9 @@
 import Agent from "tools/agent";
-import { AnkiResponse } from "models/anki";
 
 const ankiPort = 8765;
 const DEBUG = false;
 
 export function executeAnkiAction(action: string, params?: any): Promise<any> {
-  console.log("executeAnkiAction", params);
-
   if (DEBUG) {
     switch(action) {
       case "deckNames":
@@ -38,7 +35,7 @@ export function executeAnkiAction(action: string, params?: any): Promise<any> {
     action: action,
     version: 6,
     params: params
-  }, 'POST').then(v => (console.log("[executeAnkiAction]", v), v))
-    .then(v => !v.error && ( v.result )
+  }, 'POST').then(v => { console.log("[executeAnkiAction]", v); return v} )
+    .then(v => (!v.error && ( v.result ))
       || (console.log("[executeAnkiAction]Error:", v.error), Promise.reject(v.error)))
 }

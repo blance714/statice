@@ -14,21 +14,17 @@ function SearchPanel({ defaultPassage, sentence, show }
     passage && setResults([searchPassage(passage)]); //TODO add multi search engines
     e?.preventDefault();
   }
-  const handleDefaultPassage = () => {
+  useEffect(() => {
     if (defaultPassage) {
       setPassage(defaultPassage);
       console.log(defaultPassage);
       setResults([searchPassage(defaultPassage)]);
     }
-  }
-  useEffect(() => {
-    handleDefaultPassage();
   }, [defaultPassage]);
 
   let [translate, setTranslate] = useState<Promise<string> | undefined>(undefined);
   useEffect(() => {
     if (sentence?.normal) setTranslate(translateSentence(sentence.normal));
-    console.log('searchPanel', translate);
   }, [sentence]);
 
 

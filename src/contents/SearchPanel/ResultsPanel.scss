@@ -1,5 +1,14 @@
 .resultsPanel {
   height: 0;
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
   flex-grow: 1;
+}
+
+.sentence-translate {
+  margin: 5px;
+  background-color: ghostwhite;
+  border: 1px solid lightslategray;
+  border-radius: 6px;
+  padding: 5px;
 }

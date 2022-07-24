@@ -1,5 +1,6 @@
 .anki-add-note-panel {
   background-color: var(--semi-color-bg-2);
+  height: 100%;
 }
 
 .anki-add-note-header {
@@ -10,7 +11,8 @@
 
 .anki-add-note-content {
   margin: 0.5rem;
-  overflow: scroll;
+  height: 0;
+  overflow-y: scroll;
 }
 
 .anki-add-note-select {

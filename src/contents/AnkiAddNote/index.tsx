@@ -2,11 +2,10 @@ import { addNote } from "api/promise/anki/addNote";
 import { useDeckNames } from "api/swr/anki/useDeckNames";
 import { useModelFieldNames } from "api/swr/anki/useModelFieldNames";
 import { useModelNames } from "api/swr/anki/useModelNames";
-import { Button, Col, Form, Layout, Row, Select, Space, Spin } from "@douyinfe/semi-ui";
+import { Button, Col, Form, Layout, Row, Select, Space, Spin, Toast } from "@douyinfe/semi-ui";
 
 import "./index.scss";
 import { useEffect, useRef, useState } from "react";
-import { setConfig, useConfig } from "tools/config";
 import { SearchResultNote } from "models/config/anki";
 import useSWR from "swr";
 import Agent from "tools/agent";
@@ -20,7 +19,7 @@ export function AnkiAddNote({ onClose, searchResultNote }: { onClose?: () => voi
   const [ nowDeck, setNowDeck ] = useState("");
   const [ nowModelName, setNowModelName ] = useState("");
 
-  const { modelFieldNames, error } = useModelFieldNames(nowModelName);
+  const { modelFieldNames } = useModelFieldNames(nowModelName);
 
   const [ formData, setFormData ] = useState<{ [key: string]: string }>({});
   const _addNote = () => {
@@ -29,7 +28,9 @@ export function AnkiAddNote({ onClose, searchResultNote }: { onClose?: () => voi
       deckName: nowDeck,
       modelName: nowModelName,
       fields: formData
-    });
+    })
+      .then(() => Toast.success('Successfully added to ANKI'))
+      .catch(() => Toast.error('Failed to add to ANKI'));
     onClose && onClose();
   }
 
@@ -55,18 +56,20 @@ export function AnkiAddNote({ onClose, searchResultNote }: { onClose?: () => voi
       setFormValue(value);
       setFormData(value);
       setFormKey(v => v + 1);
-      console.log("AnkiAddNote", value, searchResultNote, formKey);
     }
   }, [searchResultNote, nowModelName, config]);
 
   useEffect(() => {
-    !isValidating && Agent.configSet({
+    !isValidating && (
+      nowDeck !== config?.ankiAddNoteSelection.deck
+      || nowModelName !== config?.ankiAddNoteSelection.model
+      ) && Agent.configSet({
       ankiAddNoteSelection: {
         deck: nowDeck,
         model: nowModelName
       }
     });
-  }, [nowDeck, nowModelName]);
+  }, [isValidating, config, nowDeck, nowModelName]);
 
   const { Header, Content, Footer } = Layout;
 
